@@ -1,0 +1,30 @@
+html {
+ box-sizing: border-box; 
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+#board {
+  width: 500px;
+  height: 500px;
+}
+
+section [data-cell] {
+  height: 33%;
+  width: 33%;
+  border: 2px solid black;
+  text-align: center;
+  display: block;
+  float: left;
+}
+
+section [data-cell] h1 {
+  font-size: 30px;
+  margin-top: 40%;
+}
+
+section [data-cell]:hover {
+  background: green;
+}

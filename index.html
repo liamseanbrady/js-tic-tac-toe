@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Tic Tac Toe</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <button class="restart-button">Restart Game</button>
+    <section id="board">
+      <section data-cell=1>
+        <h1></h1>
+      </section>
+      <section data-cell=2>
+        <h1></h1>
+      </section>
+      <section data-cell=3>
+        <h1></h1>
+      </section>
+      <section data-cell=4>
+        <h1></h1>
+      </section>
+      <section data-cell=5>
+        <h1></h1>
+      </section>
+      <section data-cell=6>
+        <h1></h1>
+      </section>
+      <section data-cell=7>
+        <h1></h1>
+      </section>
+      <section data-cell=8>
+        <h1></h1>
+      </section>
+      <section data-cell=9>
+        <h1></h1>
+      </section>
+    </section>
+    
+    <script>
+      const cells = document.querySelectorAll("[data-cell]");
+      const startToken = ["X", "O"][Math.round(Math.random())];
+      const restartButton = document.querySelector(".restart-button");
+      let gameOver = false;
+      let lastToken = startToken;
+
+      function checkForWinner() {
+        const winningCombos = [[1, 2, 3], [4, 5, 6], [7, 8, 9],
+                               [1, 5, 9], [3, 5, 7], [1, 4, 7],
+                               [2, 5, 8], [3, 6, 9]];
+        winningCombos.forEach(indices => {
+          const first = cells[indices[0] - 1].querySelector("h1").textContent;
+          const second = cells[indices[1] - 1].querySelector("h1").textContent;
+          const third = cells[indices[2] - 1].querySelector("h1").textContent;
+          console.log({first, second, third});
+
+          if (first === "X" && second === "X" && third === "X") {
+            alert("winner is X");
+            gameOver = true;
+            return;
+          } else if (first === "O" && second === "O" && third === "O") {
+            alert("winner is O");
+            gameOver = true;
+            return;
+          }
+        });
+      }
+
+      function fillCell() {
+        if (this.querySelector("h1").textContent === "" && !gameOver) {
+          const token = lastToken === "X" ? "O" : "X";
+          this.innerHTML = `<h1>${token}</h1>`;
+          lastToken = token;
+          checkForWinner();
+        }
+      }
+
+      function restart() {
+        gameOver = false;
+        cells.forEach(cell => cell.innerHTML = "<h1></h1>");
+      }
+
+      cells.forEach(cell => cell.addEventListener("click", fillCell));
+      restartButton.addEventListener("click", restart);
+    </script>
+  </body>
+</html>
